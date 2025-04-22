@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Dish } from '../types/dish';
 import Image from 'next/image';
 import MenuRecommendationModal from '../components/MenuRecommendationModal';
-import Link from 'next/link';
 
 export default function MenuPage() {
   const [dishes, setDishes] = useState<Dish[]>([]);
