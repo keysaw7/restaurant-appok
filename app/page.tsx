@@ -72,8 +72,8 @@ export default function HomePage() {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: "url('/images/bonifacio-sunset.webp')",
-          backgroundPosition: "center 40%"
+          backgroundImage: "url('/images/bastia-sunset-propre.webp')",
+          backgroundPosition: "center center"
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#2F4F4F]/30 to-[#2F4F4F]/80"></div>

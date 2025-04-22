@@ -3,7 +3,7 @@ export interface Dish {
   name: string;
   description: string;
   price: number;
-  category: 'entrée' | 'plat' | 'dessert' | 'boisson';
+  category: 'entrée' | 'plat' | 'dessert' | 'boisson' | 'vins';
   ingredients: string[];
   allergens: string[];
   dietaryRestrictions: string[];

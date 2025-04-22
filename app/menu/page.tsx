@@ -3,12 +3,15 @@
 import { useState, useEffect } from 'react';
 import { Dish } from '../types/dish';
 import Image from 'next/image';
+import MenuRecommendationModal from '../components/MenuRecommendationModal';
+import Link from 'next/link';
 
 export default function MenuPage() {
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('tous');
   const [loading, setLoading] = useState(true);
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const mockDishes: Dish[] = [
@@ -243,6 +246,239 @@ export default function MenuPage() {
         dietaryRestrictions: ['végétarien'],
         recommendedPairings: ['Café Corsu', 'Grappa'],
         imageUrl: '/images/dishes/desserts/café-gustosu.webp'
+      },
+      // Vins
+      // ROUGE
+      {
+        id: 'wine-red-1',
+        name: 'Clos Fornelli 2019',
+        description: "Un vin rouge corse structuré et élégant, aux arômes de fruits noirs et d'épices. Produit dans le respect des traditions viticoles corses.",
+        price: 26,
+        category: 'vins',
+        ingredients: ['Cépages corses traditionnels'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Viandes rouges', 'Gibier', 'Fromages affinés'],
+        imageUrl: '/images/vins.webp'
+      },
+      {
+        id: 'wine-red-2',
+        name: 'Clos Venturi "Cuvée 1769" 2019',
+        description: "Une cuvée d'exception au bouquet complexe de fruits rouges, d'épices et de notes boisées. Structure tannique élégante avec une belle longueur en bouche.",
+        price: 33,
+        category: 'vins',
+        ingredients: ['Cépages corses sélectionnés'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Viandes rouges', 'Gibier', 'Plats en sauce'],
+        imageUrl: '/images/vins.webp'
+      },
+      {
+        id: 'wine-red-3',
+        name: 'Nicolas Mariotti Bindi - Mursuglia 2019',
+        description: "Un grand vin corse, finement travaillé par Nicolas Mariotti Bindi. Notes de fruits noirs, de garrigue et touche minérale. Bouche harmonieuse et finale persistante.",
+        price: 45,
+        category: 'vins',
+        ingredients: ['Cépages corses traditionnels'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Viandes rouges', 'Gibier', 'Fromages affinés'],
+        imageUrl: '/images/vins.webp'
+      },
+      {
+        id: 'wine-red-4',
+        name: 'Domaine San Michelli 2021',
+        description: "Un vin rouge de caractère issu du terroir corse. Arômes de fruits rouges et noirs, avec des notes de maquis et d'épices. Belle structure tannique et finale persistante.",
+        price: 36,
+        category: 'vins',
+        ingredients: ['Cépages corses sélectionnés'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Viandes rouges', 'Charcuteries corses', 'Fromages affinés'],
+        imageUrl: '/images/vins.webp'
+      },
+      // BLANC
+      {
+        id: 'wine-white-1',
+        name: 'Mino Sant Armettu 2021',
+        description: "Un vin blanc corse d'une grande finesse, aux notes d'agrumes et de fleurs blanches. Bouche fraîche et minérale avec une belle tension.",
+        price: 27,
+        category: 'vins',
+        ingredients: ['Cépages corses blancs'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Fruits de mer', 'Poissons grillés', 'Fromages frais'],
+        imageUrl: '/images/vins.webp'
+      },
+      {
+        id: 'wine-white-2',
+        name: 'Domaine de Piana 2022',
+        description: "Un vin blanc expressif aux arômes d'agrumes et de fruits exotiques. Belle fraîcheur en bouche avec une finale saline caractéristique du terroir corse.",
+        price: 22,
+        category: 'vins',
+        ingredients: ['Vermentinu et autres cépages corses'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Fruits de mer', 'Poissons', 'Entrées légères'],
+        imageUrl: '/images/vins.webp'
+      },
+      {
+        id: 'wine-white-3',
+        name: 'Clos Fornelli 2022',
+        description: "Un vin blanc sec et minéral, avec des notes d'agrumes et de fleurs blanches. Belle fraîcheur et finale saline caractéristique du terroir corse.",
+        price: 26,
+        category: 'vins',
+        ingredients: ['Cépages corses blancs traditionnels'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Fruits de mer', 'Poissons grillés', 'Fromages de chèvre'],
+        imageUrl: '/images/vins.webp'
+      },
+      // ROSÉ
+      {
+        id: 'wine-rose-1',
+        name: 'Domaine de Piana 2022',
+        description: "Un rosé délicat aux arômes de fruits rouges et d'agrumes. Frais et équilibré, idéal pour accompagner vos repas d'été.",
+        price: 22,
+        category: 'vins',
+        ingredients: ['Cépages corses rosés'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Grillades', 'Salades', 'Cuisine méditerranéenne'],
+        imageUrl: '/images/vins.webp'
+      },
+      {
+        id: 'wine-rose-2',
+        name: 'Sant Armettu Mino 2022',
+        description: "Un rosé d'exception à la robe pâle et brillante. Notes délicates de pêche, de fraise et d'agrumes. Structure élégante avec une belle tension.",
+        price: 26,
+        category: 'vins',
+        ingredients: ['Cépages corses sélectionnés'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Poissons', 'Fruits de mer', 'Entrées méditerranéennes'],
+        imageUrl: '/images/vins.webp'
+      },
+      {
+        id: 'wine-rose-3',
+        name: 'Domaine Saparale 2021',
+        description: "Un rosé de caractère, aux arômes intenses de fruits rouges et d'épices douces. Structure ample et finale persistante sur des notes fruitées.",
+        price: 32,
+        category: 'vins',
+        ingredients: ['Cépages corses traditionnels'],
+        allergens: ['sulfites'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Charcuteries corses', 'Poissons grillés', 'Plats méditerranéens'],
+        imageUrl: '/images/vins.webp'
+      },
+      // Boissons
+      {
+        id: 'drink1',
+        name: 'Citronnade Bio Maison',
+        description: "Une boisson rafraîchissante à base de citrons biologiques, légèrement sucrée et parfumée. Idéale pour accompagner votre repas ou vous désaltérer en journée.",
+        price: 4.5,
+        category: 'boisson',
+        ingredients: ['Citron bio', 'Eau', 'Sucre de canne bio', 'Menthe fraîche'],
+        allergens: [],
+        dietaryRestrictions: ['végétarien'],
+        recommendedPairings: [],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink2',
+        name: 'Thé glacé BIO Maison',
+        description: "Un thé glacé maison infusé avec des feuilles de thé bio et subtilement aromatisé. Une boisson désaltérante avec juste ce qu'il faut de sucre.",
+        price: 4.5,
+        category: 'boisson',
+        ingredients: ['Thé bio', 'Eau', 'Sucre de canne bio', 'Citron'],
+        allergens: [],
+        dietaryRestrictions: ['végétarien'],
+        recommendedPairings: [],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink3',
+        name: 'Gingeer Bio UMA 33cl',
+        description: "Une boisson pétillante au gingembre, 100% bio et naturelle. Notes épicées et rafraîchissantes avec une touche d'agrumes.",
+        price: 5,
+        category: 'boisson',
+        ingredients: ['Eau', 'Gingembre bio', 'Sucre de canne bio', "Extraits naturels d'agrumes"],
+        allergens: [],
+        dietaryRestrictions: ['végétarien'],
+        recommendedPairings: [],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink4',
+        name: 'Limonade Bio UMA 33cl',
+        description: "Limonade artisanale bio aux ingrédients naturels. Délicieusement pétillante avec une saveur authentique de citron.",
+        price: 5,
+        category: 'boisson',
+        ingredients: ['Eau', 'Sucre de canne bio', 'Jus de citron bio', 'Extrait naturel de citron'],
+        allergens: [],
+        dietaryRestrictions: ['végétarien'],
+        recommendedPairings: [],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink5',
+        name: 'Eau minérale gazeuse Orezza 50cl',
+        description: "Eau minérale gazeuse corse naturellement pétillante, provenant de la source Orezza située au cœur du parc naturel de Corse. Riche en fer et en magnésium.",
+        price: 5,
+        category: 'boisson',
+        ingredients: ['Eau minérale naturelle gazeuse'],
+        allergens: [],
+        dietaryRestrictions: ['végétarien'],
+        recommendedPairings: [],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink6',
+        name: 'Eau minérale plate St Georges 50cl',
+        description: "Eau minérale plate corse, puisée à la source St Georges dans la vallée de Zilia. Légère et équilibrée, faiblement minéralisée.",
+        price: 4.5,
+        category: 'boisson',
+        ingredients: ['Eau minérale naturelle plate'],
+        allergens: [],
+        dietaryRestrictions: ['végétarien'],
+        recommendedPairings: [],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink7',
+        name: 'Pietra 33cl',
+        description: "Bière ambrée traditionnelle corse à la châtaigne, offrant un équilibre parfait entre amertume et douceur. Notes de malt, de fruits secs et finale légèrement épicée.",
+        price: 6,
+        category: 'boisson',
+        ingredients: ['Eau', 'Malt', 'Houblon', 'Farine de châtaigne', 'Levure'],
+        allergens: ['gluten'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Charcuteries', 'Fromages corsés'],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink8',
+        name: "Paolina Blanche 33cl à l'immortelle",
+        description: "Bière blanche artisanale corse infusée à l'immortelle, plante aromatique du maquis. Notes florales et herbacées, légèrement épicée avec une fine amertume en fin de bouche.",
+        price: 6,
+        category: 'boisson',
+        ingredients: ['Eau', 'Malt', 'Blé', 'Houblon', 'Immortelle de Corse', 'Levure'],
+        allergens: ['gluten', 'blé'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Poissons', 'Salades'],
+        imageUrl: '/images/boissons.webp'
+      },
+      {
+        id: 'drink9',
+        name: 'Pietra IPA 33cl',
+        description: "Version IPA (India Pale Ale) de la célèbre bière corse Pietra. Plus houblonnée et aromatique que sa version classique, avec des notes d'agrumes et une amertume plus prononcée.",
+        price: 6.5,
+        category: 'boisson',
+        ingredients: ['Eau', 'Malt', 'Houblon', 'Farine de châtaigne', 'Levure'],
+        allergens: ['gluten'],
+        dietaryRestrictions: [],
+        recommendedPairings: ['Viandes grillées', 'Fromages forts'],
+        imageUrl: '/images/boissons.webp'
       }
     ];
     setDishes(mockDishes);
@@ -253,11 +489,53 @@ export default function MenuPage() {
     setSelectedDish(dish);
   };
 
-  const categories = ['tous', 'entrée', 'plat', 'dessert', 'boisson'];
+  const categories = ['tous', 'entrées', 'plats', 'desserts', 'boissons', 'vins'];
+  const wineSubcategories = ['ROUGE', 'BLANC', 'ROSÉ'];
 
   const filteredDishes = selectedCategory === 'tous' 
     ? dishes 
-    : dishes.filter(dish => dish.category === selectedCategory);
+    : dishes.filter(dish => {
+        // Mapping des catégories au pluriel vers le singulier
+        const categoryMapping: Record<string, string> = {
+          'entrées': 'entrée',
+          'plats': 'plat',
+          'desserts': 'dessert',
+          'boissons': 'boisson',
+          'vins': 'vins'
+        };
+        return dish.category === categoryMapping[selectedCategory];
+      });
+
+  // Fonction pour déterminer si un vin appartient à une sous-catégorie (rouge, blanc, rosé)
+  const getWineSubcategory = (dish: Dish): string | null => {
+    if (dish.category !== 'vins') return null;
+    
+    if (dish.id.includes('red')) return 'ROUGE';
+    if (dish.id.includes('white')) return 'BLANC';
+    if (dish.id.includes('rose')) return 'ROSÉ';
+    
+    return null;
+  };
+
+  // Regrouper les vins par sous-catégorie
+  const getWinesBySubcategory = () => {
+    const result: Record<string, Dish[]> = {
+      'ROUGE': [],
+      'BLANC': [],
+      'ROSÉ': []
+    };
+    
+    filteredDishes.forEach(dish => {
+      const subcategory = getWineSubcategory(dish);
+      if (subcategory) {
+        result[subcategory].push(dish);
+      }
+    });
+    
+    return result;
+  };
+
+  const winesBySubcategory = getWinesBySubcategory();
 
   return (
     <div className="min-h-screen bg-white">
@@ -272,22 +550,24 @@ export default function MenuPage() {
             Découvrez notre sélection de plats traditionnels corses revisités,
             inspirés par la richesse gastronomique de l&apos;île de beauté
           </p>
+          <div className="flex justify-center">
+            <button
+              onClick={() => setShowModal(true)}
+              className="mt-4 bg-[#2F4F4F] text-white px-6 py-3 rounded-lg shadow-lg hover:bg-opacity-90 transition-all duration-300 flex items-center gap-2"
+            >
+              <span className="flex items-center">
+                <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                Aide pour choisir mes plats
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Section des catégories avec image de fond fixe */}
       <div className="relative">
-        <div 
-          className="fixed inset-0 z-0"
-          style={{ 
-            backgroundImage: "url('/images/bonifacio-day.jpeg')",
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: 0.15
-          }}
-        ></div>
-
         <div className="container mx-auto px-4 py-12 relative z-10">
           {/* Navigation des catégories */}
           <div className="flex justify-center gap-4 mb-12">
@@ -312,28 +592,64 @@ export default function MenuPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-              {filteredDishes.map((dish) => (
-                <div
-                  key={dish.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-                  onClick={() => handleMoreInfo(dish)}
-                >
-                  <div className="relative h-48 w-full">
-                    <Image
-                      src={dish.imageUrl || '/images/placeholder-dish.jpg'}
-                      alt={dish.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+              {selectedCategory === 'vins' ? (
+                // Affichage des vins par sous-catégorie
+                wineSubcategories.map(subcategory => (
+                  winesBySubcategory[subcategory].length > 0 && (
+                    <div key={subcategory} className="col-span-1 md:col-span-2 lg:col-span-3">
+                      <h2 className="text-2xl font-bold text-[#2F4F4F] mt-8 mb-4 border-b border-[#2F4F4F] pb-2">{subcategory}</h2>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {winesBySubcategory[subcategory].map((dish) => (
+                          <div
+                            key={dish.id}
+                            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                            onClick={() => handleMoreInfo(dish)}
+                          >
+                            <div className="relative h-48 w-full">
+                              <Image
+                                src={dish.imageUrl || '/images/placeholder-dish.jpg'}
+                                alt={dish.name}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              />
+                            </div>
+                            <div className="p-4">
+                              <h3 className="text-xl font-playfair text-[#2F4F4F] mb-2">{dish.name}</h3>
+                              <p className="text-gray-600 mb-2 line-clamp-2">{dish.description}</p>
+                              <p className="text-[#2F4F4F] font-semibold">{dish.price}€</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                ))
+              ) : (
+                // Affichage normal des autres catégories
+                filteredDishes.map((dish) => (
+                  <div
+                    key={dish.id}
+                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                    onClick={() => handleMoreInfo(dish)}
+                  >
+                    <div className="relative h-48 w-full">
+                      <Image
+                        src={dish.imageUrl || '/images/placeholder-dish.jpg'}
+                        alt={dish.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-xl font-playfair text-[#2F4F4F] mb-2">{dish.name}</h3>
+                      <p className="text-gray-600 mb-2 line-clamp-2">{dish.description}</p>
+                      <p className="text-[#2F4F4F] font-semibold">{dish.price}€</p>
+                    </div>
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-xl font-playfair text-[#2F4F4F] mb-2">{dish.name}</h3>
-                    <p className="text-gray-600 mb-2 line-clamp-2">{dish.description}</p>
-                    <p className="text-[#2F4F4F] font-semibold">{dish.price}€</p>
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           )}
 
@@ -380,6 +696,11 @@ export default function MenuPage() {
           )}
         </div>
       </div>
+
+      <MenuRecommendationModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 } 
