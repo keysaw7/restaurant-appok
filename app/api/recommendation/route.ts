@@ -8,7 +8,7 @@ const openai = new OpenAI({
 
 export async function POST(request: Request) {
   try {
-    const { preferences, allergens, restrictions, selectedDishes } = await request.json();
+    const { preferences, allergens, restrictions } = await request.json();
 
     // Séparer les plats et les boissons
     const foodMenu = menu.filter(item => item.type === 'food');
