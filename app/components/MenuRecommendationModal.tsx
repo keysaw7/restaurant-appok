@@ -13,6 +13,7 @@ export default function MenuRecommendationModal({ isOpen, onClose }: MenuRecomme
   const [userPreferences, setUserPreferences] = useState('');
   const [recommendation, setRecommendation] = useState<string>('');
   const [recommendedDishes, setRecommendedDishes] = useState<Dish[]>([]);
+  const [recommendedDrinks, setRecommendedDrinks] = useState<Dish[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
   const [selectedRestrictions, setSelectedRestrictions] = useState<string[]>([]);
@@ -42,6 +43,7 @@ export default function MenuRecommendationModal({ isOpen, onClose }: MenuRecomme
       const data = await response.json();
       setRecommendation(data.recommendation);
       setRecommendedDishes(data.dishes);
+      setRecommendedDrinks(data.drinks);
     } catch {
       setRecommendedDishes([]);
     } finally {
@@ -186,6 +188,7 @@ export default function MenuRecommendationModal({ isOpen, onClose }: MenuRecomme
             
             {recommendedDishes.length > 0 && (
               <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-[#2F4F4F] mb-2">Plats recommandés</h4>
                 {recommendedDishes.map((dish) => (
                   <div key={dish.id} className="bg-white rounded-lg shadow-md overflow-hidden flex">
                     <div className="relative w-32 flex-shrink-0">
@@ -214,6 +217,46 @@ export default function MenuRecommendationModal({ isOpen, onClose }: MenuRecomme
                         {dish.dietaryRestrictions.length > 0 && (
                           <p className="text-green-600">
                             Restrictions : {dish.dietaryRestrictions.join(', ')}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {recommendedDrinks.length > 0 && (
+              <div className="space-y-4 mt-6">
+                <h4 className="text-lg font-semibold text-[#2F4F4F] mb-2">Boissons recommandées</h4>
+                {recommendedDrinks.map((drink) => (
+                  <div key={drink.id} className="bg-white rounded-lg shadow-md overflow-hidden flex">
+                    <div className="relative w-32 flex-shrink-0">
+                      <Image
+                        src={drink.imageUrl || '/images/placeholder-dish.webp'}
+                        alt={drink.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-3 flex-grow">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="text-base font-semibold text-[#2F4F4F]">{drink.name}</h4>
+                          <p className="text-xs text-gray-600">{drink.category}</p>
+                        </div>
+                        <p className="text-sm text-[#2F4F4F] font-semibold">{drink.price}€</p>
+                      </div>
+                      <p className="text-sm text-gray-700 my-2 line-clamp-2">{drink.description}</p>
+                      <div className="flex gap-2 text-xs">
+                        {drink.allergens.length > 0 && (
+                          <p className="text-red-600">
+                            Allergènes : {drink.allergens.join(', ')}
+                          </p>
+                        )}
+                        {drink.dietaryRestrictions.length > 0 && (
+                          <p className="text-green-600">
+                            Restrictions : {drink.dietaryRestrictions.join(', ')}
                           </p>
                         )}
                       </div>
